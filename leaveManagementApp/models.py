@@ -6,32 +6,30 @@ from django.utils import timezone
 # Create your models here.
 
 
-# class STATUS(Enum):
-#     ACCEPTED = 'accepted'
-#     CANCELED = 'canceled'
-#     REJECTED = 'rejected'
-#     WAITING = 'waiting'
 
-class Team(models.Model):
-    team_code = models.CharField(max_length=10, null=True, blank=True, unique=True)
-    libelle = models.CharField(max_length=200)
 
 
 class BusinessEntity(models.Model):
     be_Code = models.CharField(max_length=10, null=True, blank=True, unique=True)
     libelle = models.CharField(max_length=200)
 
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
 
 class Position(models.Model):
     position_code = models.CharField(max_length=10, null=True, blank=True, unique=True)
     libelle = models.CharField(max_length=200)
 
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
 
 class LeaveType(models.Model):
     LeaveTypeCode = models.CharField(max_length=10, null=True, blank=True, unique=True)
     libelle = models.CharField(max_length=200)
     daysNumber = models.BigIntegerField
 
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
 
 class Employee(models.Model):
     first_name = models.CharField(max_length=200)
@@ -48,8 +46,25 @@ class Employee(models.Model):
     be = models.ForeignKey(BusinessEntity, on_delete=models.SET_NULL, null=True)  # business unit
     positon = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True)  # business unit
     manager = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
-    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
+
+
+class Team(models.Model):
+    team_code = models.CharField(max_length=10, null=True, blank=True, unique=True)
+    libelle = models.CharField(max_length=200)
+    members = models.ManyToManyField(Employee, through='MemberTeam')
+
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
+
+
+class MemberTeam(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
+    date_affectation = models.DateField
+    affectation_reason = models.CharField(max_length=200)
 
 def enum(*args):
     enums = dict(zip(args, range(len(args))))
@@ -66,6 +81,9 @@ class LeaveRequest(models.Model):
     employee = models.ForeignKey(Employee, related_name='Employee', on_delete=models.SET_NULL, null=True)
     manager = models.ForeignKey(Employee, related_name='Manager', on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
+
 
 class Leave(models.Model):
     leave_code = models.CharField(max_length=10, null=True, blank=True, unique=True)
@@ -74,3 +92,6 @@ class Leave(models.Model):
     reason_leave = models.TextField
     leave_request = models.ForeignKey(LeaveRequest, on_delete=models.SET_NULL, null=True)
     leave_type = models.ForeignKey(LeaveType, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):  # __unicode__ on Python 2
+        return self.name
