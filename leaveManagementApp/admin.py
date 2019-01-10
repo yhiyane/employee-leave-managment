@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from leaveManagementApp.models import Employee, LeaveRequest, Leave, Team, BusinessEntity, Position, LeaveType
+from leaveManagementApp.models import Employee, LeaveRequest, Leave, Team, BusinessEntity, Position, LeaveType, \
+    MemberTeam
 
 # Register your models here.
 
@@ -11,3 +12,4 @@ admin.site.register(Team)
 admin.site.register(BusinessEntity)
 admin.site.register(Position)
 admin.site.register(LeaveType)
+admin.site.register(MemberTeam)
