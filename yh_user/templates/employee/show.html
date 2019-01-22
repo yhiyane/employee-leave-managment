@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card" style="margin: 10px; padding: 20px;">
+
+    <a class="btn btn-success" href="{% url 'employee.index' %}">
+
+        <i class="material-icons">arrow_back</i>
+
+    </a>
+
+    <table class="bordered">
+
+        <tr>
+
+            <th style="width: 20%">First name
+
+            </td>
+
+            <td>{{ item.first_name }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Last name</th>
+
+            <td>{{ item.last_name }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>CIN</th>
+
+            <td>{{ item.cin_code }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Birthday</th>
+
+            <td>{{ item.birth_date }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Hireday</th>
+
+            <td>{{ item.hire_date }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Email</th>
+
+            <td>{{ item.email }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>CNSS code</th>
+
+            <td>{{ item.cnss_code }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>business unit</th>
+
+            <td>{{ item.be.libelle }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th> Position</th>
+
+            <td>{{ item.position.libelle }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Manager</th>
+
+            <td>{{ item.manager.first_name }} {{ item.manager.last_name }}</td>
+
+        </tr>
+        <tr>
+
+            <th>Teams</th>
+
+
+            <td>
+
+                <ul>
+
+                    {% for t in item.teams.all %}
+
+                    <li>{{ t.libelle }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </td>
+
+        </tr>
+
+
+
+
+        <!--     <tr>
+
+                 <th>Documents :</th>
+
+                 <td>
+
+                     {% if documents %}
+
+                         <table class="bordered">
+
+                             <tr>
+
+                                 <th>label</th>
+
+                                 <th>Description</th>
+
+                                 <th>Attached piece</th>
+
+                             </tr>
+
+                             {% for document in documents %}
+
+                                 <tr>
+
+                                     <td>
+
+                                         {{ document.label }}
+
+                                     </td>
+
+                                     <td>
+
+                                         {{ document.description }}
+
+                                     </td>
+
+                                     <td style="width: 20%">
+
+                                         <a class="waves-effect waves-light btn-floating btn-sm blue" href="{{ document.attached_piece.url }}">
+
+                                             <i class="material-icons">file_download</i>
+
+                                         </a>
+
+                                     </td>
+
+                                 </tr>
+
+                             {% endfor %}
+
+                         </table>
+
+                     {% endif %}
+
+                 </td>
+
+             </tr>
+ -->
+    </table>
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% if userForm %}
+
+    <div class="row">
+
+        {% for field in userForm %}
+
+            <div class="input-field col s12">
+
+                {{ field }}
+
+                <label for="{{ field.id_for_label }}" data-error="wrong" data-success="right">{{ field.label }}</label>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}

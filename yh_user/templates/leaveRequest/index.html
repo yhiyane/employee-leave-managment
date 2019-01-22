@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col s12">
+
+            <div style="padding: 10px 35px 3px 35px;" class="card">
+
+                <div class="row row-margin-bottom">
+
+                    <a style="margin-top: 11px;float: left" class="waves-effect waves-light btn " href="{% url 'leaveRequest.create' %}">
+                        add
+                    </a>
+
+                    <form style="float: right" method="get" action="{% url 'leaveRequest.index' %}">
+
+                        <div class="row">
+
+                            <div class="col s10">
+
+                                <input name="keyword" class="col s12" type="text" placeholder="Search" value="{{ keyword }}">
+
+                            </div>
+
+                            <div class="col s2">
+
+                                <button style="margin-top: 5px;" type="submit" class="waves-effect waves-light btn-floating btn-sm blue-grey">
+
+                                    <i class="material-icons">search</i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col s12">
+
+                        <table cellpadding="1" cellspacing="1" class="bordered striped" id="myTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Code</th>
+
+                                    <th>Start Date</th>
+
+                                    <th>End Date</th>
+
+                                    <th>Employee</th>
+
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for item in items %}
+
+                                    <tr>
+
+                                        <td> {{ item.leave_request_code }}</td>
+
+                                        <td> {{ item.start_date }}</td>
+
+                                        <td> {{ item.end_date }}</td>
+
+                                        <td> {{ item.employee.first_name }}</td>
+
+                                        <td> {{ item.status }}</td>
+
+                                        <td>
+
+                                            <a class="waves-effect waves-light btn-floating btn-sm blue"
+
+                                               href="{% url 'leaveRequest.show'  item.id %}">
+
+                                                <i class="material-icons">remove_red_eye</i>
+
+                                            </a>
+
+                                            <a class="waves-effect waves-light btn-floating btn-sm green"
+
+                                               href="{% url 'leaveRequest.update' item.id %}">
+
+                                                <i class="material-icons">edit</i>
+
+                                            </a>
+
+                                            {% include 'parts/delete-form.html' with action='leaveRequest.delete'%}
+
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                        <div class="col-md-12 ">
+
+                            {% include 'parts/pagination.html' with items=items %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col s12">
+
+            <div style="padding: 35px;" class="card">
+
+                <div class="row">
+
+                    <div class="row"></div>
+
+                    <div class="col s12">
+
+                        <div class="row">
+
+                            <div class="col s8">
+
+                                <a class="waves-effect waves-light btn" href="{% url 'employee.index' %}">
+
+                                    <i class="material-icons">arrow_back</i>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col m6">
+
+                                <a href="{% url 'employee.update' item.id %}" class="btn btn-block">
+
+                                    Update employer
+
+                                </a>
+
+                            </div>
+
+                            <div class="col m6">
+
+                                <a href="{% url 'employee.documents.index' item.id %}" class="pink btn btn-block">
+
+                                    Update Attached files
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row col s12">
+
+                            <a style="margin-top: 11px;float: left" class="blue waves-effect waves-light btn-floating btn-sm" href="{% url 'employee.documents.create' item.id %}">
+
+                                <i class="material-icons">add</i>
+
+                            </a>
+
+                            <table class="bordered">
+
+                                <tr>
+
+                                    <th>label</th>
+
+                                    <th>Description</th>
+
+                                    <th>Attached piece</th>
+
+                                    <th>Actions</th>
+
+                                </tr>
+
+                                {% for document in documents %}
+
+                                    <tr>
+
+                                        <td>
+
+                                            {{ document.label }}
+
+                                        </td>
+
+                                        <td>
+
+                                            {{ document.description }}
+
+                                        </td>
+
+                                        <td>
+
+                                            <a class="waves-effect waves-light btn-floating btn-sm blue" href="{{ document.attached_piece.url }}">
+
+                                                <i class="material-icons">file_download</i>
+
+                                            </a>
+
+                                        </td>
+
+                                        <td style="width: 20%">
+
+                                            <a class="waves-effect waves-light btn-floating btn-sm green" href="{% url 'employee.documents.update' item.id document.id %}">
+
+                                                <i class="material-icons">edit</i>
+
+                                            </a>
+
+                                            <form style="display:inline" class="inline-related" method="POST" action="{% url 'employee.documents.delete' item.id document.id %}">
+
+                                                {% csrf_token %}
+
+                                                <a class="waves-effect waves-light btn-floating btn-sm red  modal-trigger" href="#modal{{ item.id }}">
+
+                                                    <i class="material-icons">delete_forever</i>
+
+                                                </a>
+
+                                                <div id="modal{{ item.id }}" class="modal">
+
+                                                    <div class="modal-content">
+
+                                                        <h4>Are you sure ?</h4>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+
+                                                        <button type="submit" href="#!" class=" modal-action waves-effect waves-green btn-flat">
+
+                                                            Agree
+
+                                                        </button>
+
+                                                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">
+
+                                                            DisAgree
+
+                                                        </a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
+
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

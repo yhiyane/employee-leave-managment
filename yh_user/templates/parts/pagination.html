@@ -1,0 +1,82 @@
+{% load tags %}
+
+{% if items.has_other_pages %}
+
+    <ul class="pagination pager" id="myPager">
+
+        {% if items.has_previous %}
+
+            <li>
+
+                <a href="?{% url_replace request 'page' items.previous_page_number %}" class="prev_link" title="Anterior" style="display: inline-block;">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+
+            </li>
+
+        {% else %}
+
+            <li class="disabled">
+
+                <a href="#">
+
+                    <i class="material-icons">chevron_left</i>
+
+                </a>
+
+            </li>
+
+        {% endif %}
+
+        {% for i in page_range %}
+
+            {% if items.number == i %}
+
+                <li class="waves-effect active blue">
+
+                    <a href="#" class="page_link">{{ i }}</a>
+
+                </li>
+
+            {% else %}
+
+                <li class="waves-effect">
+
+                    <a href="?{% url_replace request 'page' i %}" class="page_link">{{ i }}</a>
+
+                </li>
+
+            {% endif %}
+
+        {% endfor %}
+
+        {% if items.has_next %}
+
+            <li>
+
+                <a href="?{% url_replace request 'page' items.next_page_number %}" class="next_link" title="Siguiente" style="display: inline-block;">
+
+                    <i class="material-icons">chevron_right</i>
+
+                </a>
+
+            </li>
+
+        {% else %}
+
+            <li class="disabled">
+
+                <a href="#">
+
+                    <i class="material-icons">chevron_right</i>
+
+                </a>
+
+            </li>
+
+        {% endif %}
+
+    </ul>
+
+{% endif %}
+

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+
+        {% if request.user.is_superuser %}
+
+            <div class="col m4 s12">
+
+                <div style="padding: 35px;" align="center" class="card">
+
+                    <div class="row">
+
+                        <div class="card-title">
+
+                            <b style="font-size: 80%">User Management</b>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <a href="{% url 'user.index' %}">
+
+                            <div style="padding: 30px;" class="grey lighten-3 col s12 m12 waves-effect">
+
+                                <i class="cyan-text text-lighten-1 large material-icons">person</i>
+
+                                <span class="cyan-text text-lighten-1"><h5>Users</h5></span>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+        <div class="col m4 s12">
+
+            <div style="padding: 35px;" align="center" class="card">
+
+                <div class="row">
+
+                    <div class="card-title">
+
+                        <b style="font-size: 80%">Employees Management</b>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <a href="{% url 'employee.index' %}">
+
+                        <div style="padding: 30px;" class="grey lighten-3 col s12 waves-effect">
+
+                            <i class="cyan-text text-lighten-1 large material-icons">people</i>
+
+                            <span class="cyan-text text-lighten-1"><h5>Employees</h5></span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col m4 s12">
+
+            <div style="padding: 35px;" align="center" class="card">
+
+                <div class="row">
+
+                    <div class="card-title">
+
+                        <b style="font-size: 80%" class="center">Leave Management</b>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <a href="{% url 'leaveRequest.index' %}">
+
+                        <div style="padding: 30px;" class="grey lighten-3 col s12 waves-effect">
+
+                            <i class="cyan-text text-lighten-1 large material-icons">store</i>
+
+                            <span class="cyan-text text-lighten-1"><h5>Leave Request</h5></span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

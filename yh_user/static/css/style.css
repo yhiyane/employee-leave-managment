@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+header,
+main,
+footer {
+    padding-left: 240px;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    background-color: #00bcd4;
+}
+
+body {
+    backgroud: white;
+}
+
+@media only screen and (max-width: 992px) {
+    header,
+    main,
+    footer {
+        padding-left: 0;
+    }
+}
+
+#credits li,
+#credits li a {
+    color: white;
+}
+
+#credits li a {
+    font-weight: bold;
+}
+
+.footer-copyright .container,
+.footer-copyright .container a {
+    color: #00bcd4;
+}
+
+.fab-tip {
+    position: fixed;
+    right: 85px;
+    padding: 0px 0.5rem;
+    text-align: right;
+    background-color: #323232;
+    border-radius: 2px;
+    color: #FFF;
+    width: auto;
+}
+
+ul.errorlist > li {
+    color: #f44336;
+}
+
+.helptext {
+    color: blue;
+}
+
+.user-details {
+    background: url(/static/imgs/mat_image2.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    /* overflow: hidden; */
+    margin-bottom: -20px;
+    padding: 15px 0 0 15px;
+    line-height: 26px !important;
+}
+
+.row-margin-bottom {
+    margin-bottom: 0;
+}
+
+.breadcrumb:before {
+    color: #00bcd4 !important;;
+}
+
+#slide-out > li > a > i {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+#slide-out > li > a > b {
+    margin-left: 30px;
+}
+
+#page-footer {
+
+}
+
+label[for=id_edit_password] {
+    padding-bottom: 36px;
+}
+
+.dropdown-content {
+    top: 60px !important;
+}
+
+.collapsible-body > ul > li.active {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.collapsible-body > ul > li.active {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+
+.collapsible-body > ul > li.active > a {
+
+    color: rgb(0, 0, 0) !important;
+}
+
+.collapsible li.active i.expand_more {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}

@@ -1,0 +1,69 @@
+{% if form.errors %}
+
+    <div id="errors" class="white-text card white-text red error-form" style="    padding: 1px 0 1px 20px;">
+
+        <ul>
+
+            {% for field in form %}
+
+                {% if field.errors %}
+
+                    <li>
+
+                        {{ field.label }} :
+
+                        <ul>
+
+                            {% for error in field.errors %}
+
+                                <li style="    padding-left: 30px;"> {{ error|escape }}</li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    </li>
+
+                {% endif %}
+
+            {% endfor %}
+
+            <li>
+
+                {% if  field.errors %}
+
+                    {{ field.label }} :
+
+                    <ul>
+
+                        {% for error in form.non_field_errors %}
+
+                            <li style="    padding-left: 30px;"> ss{{ error|escape }}</li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                {% endif %}
+
+            </li>
+
+        </ul>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('html, body').animate({
+
+                scrollTop: $("#errors").offset().top
+
+            }, 2000);
+
+        })
+
+    </script>
+
+{% endif %}

@@ -1,0 +1,37 @@
+<form style="display:inline" class="inline-related" method="POST" action="{% url action item.id %}">
+
+    {% csrf_token %}
+
+    <a class="waves-effect waves-light btn-floating btn-sm red  modal-trigger" href="#modal{{ item.id }}">
+
+        <i class="material-icons">delete_forever</i>
+
+    </a>
+
+    <div id="modal{{ item.id }}" class="modal" style="margin-top: 180px; width: 500px;">
+
+        <div class="modal-content">
+
+            <h4>Are you sure ?</h4>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button type="submit" href="#!" class=" modal-action waves-effect waves-green btn-flat">
+
+                Agree
+
+            </button>
+
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">
+
+                Cancel
+
+            </a>
+
+        </div>
+
+    </div>
+
+</form>

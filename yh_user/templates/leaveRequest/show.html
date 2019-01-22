@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="card"  style="margin: 10px; padding: 20px;" >
+
+        <a class="btn btn-success" href="{% url 'leaveRequest.index' %}">
+            <i class="material-icons">arrow_back</i>
+        </a>
+
+        <div>
+
+            <table class="responsive-table">
+
+                <tr>
+
+                    <th style="width: 15%">Name :</th>
+
+                    <td>{{ item.name }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Description :</th>
+
+                    <td>{{ item.description }}</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

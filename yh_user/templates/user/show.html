@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="card" style="margin: 10px; padding: 20px">
+
+        <a class="btn btn-success" href="{% url 'user.index' %}"><i class="material-icons">arrow_back</i></a>
+
+        <div class="card-content">
+
+            <table class="responsive-table">
+
+            <tr>
+
+                <th style="width: 30%">First name :</th>
+
+                <td>{{ item.first_name }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th style="width: 30%">Last name :</th>
+
+                <td>{{ item.last_name }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th style="width: 30%">Username :</th>
+
+                <td>{{ item.username }}</td>
+
+            </tr>
+
+        </table>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

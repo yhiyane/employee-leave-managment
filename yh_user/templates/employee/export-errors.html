@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col s12">
+
+            <div style="padding: 35px;" class="card">
+
+                <div class="row">
+
+                    <div class="col s8">
+
+                        <a class="waves-effect waves-light btn" href="{% url 'employee.index' %}">
+                            <i class="material-icons">arrow_back</i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col m12">
+
+                        <table cellpadding="1" cellspacing="1" class="bordered striped">
+
+                            <tr>
+
+                                <th>FirstName</th>
+
+                                <th>LastName</th>
+
+                                <th>State</th>
+
+                                <th>Errors</th>
+
+                            </tr>
+
+                            {% for item in list %}
+
+                                <tr>
+
+                                    <td>{{ item.first_name }}</td>
+
+                                    <td>{{ item.last_name }}</td>
+
+                                    <td>
+
+                                        {% if item.errors %}
+
+                                            <span style="padding: 4px;color: white" class="red z-depth-1">Not Ok</span>
+
+                                        {% else %}
+
+                                            <span style="padding: 4px;color: white" class="green z-depth-1">Ok</span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td>
+
+                                        <ul>
+
+                                            {% for err in item.errors %}
+
+                                                {{ err }}
+
+                                            {% endfor %}
+
+                                        </ul>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

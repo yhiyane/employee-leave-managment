@@ -1,0 +1,218 @@
+{% load static %}
+
+{% load tags %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Employee Management</title>
+
+    <link rel='stylesheet prefetch' href='{% static 'css/materialize.min.css' %}'>
+
+    <link rel='stylesheet prefetch' href='{% static 'css/jquery-clockpicker.min.css' %}'>
+
+    <link rel='stylesheet prefetch' href='{% static 'font/Material-Design-Icons.woff' %}'>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link href="{% static 'css/icon.css' %}" rel="stylesheet">
+
+    <script src='{% static 'js/jquery-2.2.4.min.js' %}'></script>
+
+    <script src='{% static 'js/jquery.formset.js' %}'></script>
+
+    <script src='{% static 'js/materialize.min.js' %}'></script>
+
+    <script src='{% static 'js/jquery-clockpicker.min.js' %}'></script>
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+</head>
+
+<body>
+
+    <ul id="slide-out" class="side-nav fixed z-depth-2 cyan">
+
+        <li class="center no-padding user-details">
+
+            <div class="text-hide")>
+
+                <div class="row">
+
+                    <img style="margin-bottom: 20px;margin-top: 20px;width: 60px;margin-bottom: -22px;" width="100" height="100" src="/static/imgs/calendar_icon.png" class="circle responsive-img"/>
+
+                    {% if user.is_authenticated %}
+
+                        <p class="white-text" style="font-family: inherit;font-size: 17px;">{{ user.first_name }} {{ user.last_name }}</p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </li>
+
+        <li class="{% active '^/$' %}">
+
+            <a class="waves-effect waves-cyan" href="{% url 'panel.index' %}">
+
+                <i class="material-icons">dashboard</i>
+
+                <b>Dashboard</b>
+
+            </a>
+
+        </li>
+
+        <li class="{% active 'employee.index' %}">
+
+            <a class="waves-effect" href="{% url 'employee.index' %}">
+
+                <i class="material-icons">people</i>
+
+                <b>Employees</b>
+
+            </a>
+
+        </li>
+
+        {% if request.user.is_superuser %}
+
+            <ul class="collapsible" data-collapsible="accordion">
+
+                <li id="dash_products" class="active">
+
+                    <div id="dash_products_header" class="collapsible-header waves-effect {% active 'user.index' %} {% active 'bu.index' %} {% active 'level.index' %} {% active 'degree.index' %}">
+
+                        <i class="material-icons">settings</i>
+
+                        <b>Config</b>
+
+                        <i class="material-icons expand_more" style="float: right">expand_more</i>
+
+                    </div>
+
+                    <div id="dash_products_body" class="collapsible-body" style="display: block;">
+
+                        <ul>
+
+                            <li class="{% active 'user.index' %}" id="user_user">
+
+                                <a class="text-black waves-effect waves-cyan" style="text-decoration: none;" href="{% url 'user.index' %}">
+                                    Users
+                                </a>
+
+                            </li>
+
+                            <li class=" {% active 'be.index' %} " id="be_be">
+
+                                <a class="text-black waves-effect waves-cyan" style="text-decoration: none;" href="{% url 'be.index' %}">
+                                    Business unit
+                                </a>
+
+                            </li>
+
+                            <li class=" {% active 'team.index' %} " id="team_team">
+
+                                <a class="text-black waves-effect waves-cyan" style="text-decoration: none;" href="{% url 'team.index' %}">
+                                    Team
+                                </a>
+
+                            </li>
+
+                            <li class=" {% active 'leaveRequest.index' %} " id="products_product">
+
+                                <a class="text-black waves-effect waves-cyan" style="text-decoration: none;" href="{% url 'leaveRequest.index' %}">
+                                    Leave Request
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        {% endif %}
+
+    </ul>
+
+    <header>
+
+        <nav class= blue  role="navigation">
+
+            <div class="nav-wrapper">
+
+                <!--<a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: 17px; margin-left: 5px;" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989873/smaller-main-logo_3_bm40iv.gif"/></a>-->
+
+                <ul class="right hide-on-med-and-down">
+
+                    <li>
+
+                        <a class='right dropdown-button' href="#" data-activates='user_dropdown'>
+                            <i class=' material-icons'>keyboard_tab</i>
+                        </a>
+
+                    </li>
+
+                </ul>
+
+                <a href="#" data-activates="slide-out" class="button-collapse">
+                    <i class="mdi-navigation-menu"></i>
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <main>
+
+        {% if messages %}
+
+            <script>
+
+                $(document).ready(function () {
+
+                    {% for message in messages %}
+
+                        Materialize.toast('{{ message }}', 10000)
+
+                    {% endfor %}
+
+                })
+
+            </script>
+
+        {% endif %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+    <script>
+
+        $('.button-collapse').sideNav();
+
+        $('.collapsible').collapsible();
+
+        $('select').material_select();
+
+    </script>
+
+</body>
+
+</html>
+
