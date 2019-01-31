@@ -6,25 +6,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.db.models.functions import datetime
-from django.forms import formset_factory
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template import context
 
 from leaveManagementApp.models import BusinessEntity
 from leaveManagementApp.models import Employee
 from yh_employee.forms import EmployeeForm, ExportForm
 from yh_employee.models import Document
 from yh_employee.utils import paginate
-
-# from employee.forms import employeeForm, DocumentForm, ExportForm
-
-
-# Create your views here.
-
 # employee list
 from yh_user.forms import UserForm
+
+
+# from employee.forms import employeeForm, DocumentForm, ExportForm
+# Create your views here.
 
 
 @login_required  # a shortcut to check if user is login
@@ -33,7 +28,8 @@ def index(request):  # index function to list employees
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']  # store the keyword param into a variable
         # search by first name or last name
-        employees_items = Employee.objects.filter(Q(first_name__icontains=keyword) | Q(last_name__icontains=keyword))
+        employees_items = Employee.user.objects.filter(
+            Q(first_name__icontains=keyword) | Q(last_name__icontains=keyword))
     else:
         employees_items = Employee.objects.all()  # get all employee
         keyword = ""
@@ -68,6 +64,7 @@ def show(request, id):
 def create(request):
     form = EmployeeForm()  # create SalariedForm object
     userForm = UserForm()  # create SalariedForm object
+    employee = Employee()
     if request.method == 'GET':  # check if get request
         context = {
             'form': form,
@@ -82,8 +79,13 @@ def create(request):
         if form.is_valid() and userForm.is_valid():
             uf = userForm.save()
             emp = form.save(commit=False)
+            print("employee form==> ")
+            print(emp)
             emp.user = uf  # employee
+            emp.first_name = uf.first_name
+            emp.last_name = uf.last_name
             emp.save()
+            form.save_m2m()
             messages.info(request, 'new employee created')
             return redirect('employee.index')
         else:
@@ -98,14 +100,24 @@ def create(request):
 # this function for showing employee update form and also for the form submission
 def update(request, id):
     item = get_object_or_404(Employee, pk=id)
+    # create SalariedForm object
+    userForm = UserForm()
     form = EmployeeForm(request.POST or None, instance=item)  # pass the Employee instance to the form
-    if form.is_valid():
-        form.save()
+    userForm = UserForm(request.POST or None, instance=item.user)  # pass the Employee instance to the form
+    if form.is_valid() and userForm.is_valid():
+        uf = userForm.save()
+        emp = form.save(commit=False)
+        emp.user = uf  # employee
+        emp.first_name = uf.first_name
+        emp.last_name = uf.last_name
+        emp.save()
+        form.save_m2m()
         messages.info(request, 'employee updated')
         return redirect('employee.index')
 
     context = {
         'form': form,
+        'userForm': userForm,
         'item': item
     }
     return render(request, 'employee/form-update.html', context)

@@ -39,10 +39,7 @@
                 </div>
 
             </div>
-
-        {% endif %}
-
-        <div class="col m4 s12">
+            <div class="col m4 s12">
 
             <div style="padding: 35px;" align="center" class="card">
 
@@ -76,6 +73,10 @@
 
         </div>
 
+        {% endif %}
+
+
+        {% if not request.user.is_superuser %}
         <div class="col m4 s12">
 
             <div style="padding: 35px;" align="center" class="card">
@@ -109,7 +110,7 @@
             </div>
 
         </div>
-
+        {% endif %}
     </div>
 
 {% endblock %}

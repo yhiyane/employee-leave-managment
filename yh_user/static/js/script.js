@@ -1,5 +1,3 @@
-
-
 function addDays(theDate, days) {
     return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
 }
@@ -80,6 +78,38 @@ $(document).ready(function () {
             }
         })
     }
+
+    half_day = $("#id_half_day")
+    if (half_day.length > 0) {
+        end_date = $("#id_end_date");
+        half_status = $('#id_half_day_status');
+        half_status.parent().parent().css('margin-top', "56px");
+        if (edit_password.is(":checked")) {
+            end_date.attr('disabled', false);
+            end_date.parent().show();
+            half_status.attr('disabled', true);
+            half_status.parent().parent().show();
+        } else {
+            end_date.attr('disabled', true);
+            end_date.parent().hide();
+            half_status.attr('disabled', false);
+            half_status.parent().parent().show();
+        }
+
+        half_day.change(function () {
+            if (this.checked) {
+                end_date.attr('disabled', true)
+                end_date.parent().hide()
+                half_status.attr('disabled', false)
+                half_status.parent().parent().show()
+            } else {
+                end_date.attr('disabled', false)
+                end_date.parent().show()
+                half_status.attr('disabled', true)
+                half_status.parent().parent().hide()
+            }
+        });
+    }
     $(':input[required]').attr('required', false)
 
     $("ul.tabs > li.tab > a").unbind('click');
@@ -92,12 +122,12 @@ $(document).ready(function () {
     });
 
     // youssef modifs
-    $("#id_start_time").parent(".input-field").addClass("clockpicker");
-    $("#id_end_time").parent(".input-field").addClass("clockpicker");
-    $('.clockpicker').clockpicker({
-        donetext : 'Done',
-        'default' : 'now'
-    });
+    // $("#id_start_time").parent(".input-field").addClass("clockpicker");
+    // $("#id_end_time").parent(".input-field").addClass("clockpicker");
+    // $('.clockpicker').clockpicker({
+    //     donetext: 'Done',
+    //     'default': 'now'
+    // });
 })
 
 $(document).on('ready', function () {

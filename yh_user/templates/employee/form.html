@@ -29,14 +29,15 @@
                 <div class="col s10 offset-s1">
 
                     {% include 'parts/errors.html' %}
+                    {% include 'parts/errors-user-form.html' %}
 
                     <form method="POST" enctype="multipart/form-data">
 
                         {% csrf_token %}
 
-                        {% include 'parts/form.html' %}
-
                         {% include 'parts/form-user.html' %}
+
+                        {% include 'parts/form.html' %}
 
 
                         <div class="form-group row" style="float: right">
@@ -53,7 +54,6 @@
 
                         </div>
                     </form>
-
 
 
                 </div>

@@ -1,21 +1,21 @@
 from django import forms
 from django.core.validators import FileExtensionValidator
 
-from leaveManagementApp.models import Employee, BusinessEntity, Team
+from leaveManagementApp.models import Employee, BusinessEntity
+
 
 # create a Django Form class to generate Employee form
-from yh_employee.models import Document
 
 
 class EmployeeForm(forms.ModelForm):
     be = forms.ModelChoiceField(queryset=BusinessEntity.objects.all(), empty_label='Select Business unit')
 
-
+    # teams = forms.(queryset=Team.objects.all(), empty_label='Select team')
     class Meta:
         model = Employee
         fields = [
-            'first_name',
-            'last_name',
+            # 'first_name',
+            # 'last_name',
             'cin_code',
             'birth_date',
             'hire_date',
@@ -23,6 +23,7 @@ class EmployeeForm(forms.ModelForm):
             'cnss_code',
             'be',
             'position',
+            'is_manager',
             'experience_years_number',
             'manager',
             'teams',

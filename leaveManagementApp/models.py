@@ -33,7 +33,7 @@ class LeaveType(models.Model):
 
 
 class Team(models.Model):
-    team_code = models.CharField(max_length=10, null=True, blank=True, unique=True)
+    team_code = models.CharField(max_length=10, unique=True)
     libelle = models.CharField(max_length=200)
 
     # members = models.ManyToManyField(Employee, through='MemberTeam')
@@ -57,8 +57,9 @@ class Employee(models.Model):
     be = models.ForeignKey(BusinessEntity, on_delete=models.SET_NULL, null=True)
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
     manager = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
-    teams = models.ManyToManyField(Team)
+    teams = models.ManyToManyField(Team, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
+    is_manager = models.BooleanField(default=False)
 
     def __str__(self):  # __unicode__ on Python 2
         return self.first_name
@@ -78,18 +79,25 @@ MYSTATUS = (
     ('Canceled', 'CANCELED'),
 )
 
+HALFDAYSTATUS = (
+    ('Morning', 'MORNING'),
+    ('Afternoon', 'AFTERNOON'),
+)
+
 
 class LeaveRequest(models.Model):
     leave_request_code = models.CharField(max_length=10, null=True, blank=True, unique=True)
     start_date = models.DateField()
-    end_date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    end_date = models.DateField(null=True, blank=True)
+    # start_time = models.TimeField()
+    # end_time = models.TimeField()
     create_date = models.DateTimeField(null=True)
     status = models.CharField(max_length=10, choices=MYSTATUS)
     reason = models.CharField(max_length=400, null=True, blank=True)
     employee = models.ForeignKey(Employee, related_name='Employee', on_delete=models.SET_NULL, null=True)
     manager = models.ForeignKey(Employee, related_name='Manager', on_delete=models.SET_NULL, null=True)
+    half_day = models.BooleanField(default=False)
+    half_day_status = models.CharField(max_length=10, choices=HALFDAYSTATUS, null=True, blank=True)
 
     def __str__(self):  # __unicode__ on Python 2
         return self.leave_request_code

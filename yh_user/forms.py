@@ -23,7 +23,7 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.show_edit_password = kwargs.pop('show_edit_password', False)
         super(UserForm, self).__init__(*args, **kwargs)
-        # self.fields['description'].widget.attrs.update({'class': 'materialize-textarea'})
+
         self.fields['is_superuser'].label = "Admin"
 
         if not self.show_edit_password:
