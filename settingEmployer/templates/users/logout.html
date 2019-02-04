@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+{% load crispy_forms_tags %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Login - Vali Admin</title>
+</head>
+<body>
+<section class="material-half-bg">
+    <div class="cover" style="background-color: #45637f;"></div>
+</section>
+<section class="login-content">
+    <center>
+        <div class="logo">
+            <a class="" href="#" style="width: 20%;">
+                <img src="../static/images/logoYmagiss.png" style="width: 20%;margin-top: 1.5%;"/></a>
+        </div>
+
+    </center>
+    <br><br>
+    <center>
+        <div class="app-title" style="background-color: white;width: 590px;min-height: 30px;">
+        <h2 style="margin-left: 32px;"> <i class="fa  fa-unlock-alt"></i> &nbsp;&nbsp;You have been logged out</h2>
+        <p class="semibold-text mb-2" style="color:#45637f;margin-left: 34px;"><a href="{% url 'login' %}">Sing in</a></p>
+        </div>
+</center>
+</section>
+<script src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
+<script src="{% static 'js/popper.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="{% static 'js/plugins/pace.min.js' %}"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="js/plugins/pace.min.js"></script>
+<script type="text/javascript">
+      // Login Page Flipbox control
+      $('.login-content [data-toggle="flip"]').click(function() {
+      	$('.login-box').toggleClass('flipped');
+      	return false;
+      });
+
+</script>
+</body>
+</html>

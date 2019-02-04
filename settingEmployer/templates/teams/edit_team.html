@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-edit"></i> Update Team Information</h1>
+        <p>In this page you will find all information about "{{ team.libelle }}" team </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="small_div">
+                      <a class="btn btn-danger" href="{% url 'CRUD:teams'%}" style="background: transparent;color: #45637f;
+                               border: none;"><i class="fa fa-arrow-left" style="font-size: 19px; "></i> Back to the list</a>
+                    <div class="container">
+                        <div class="container-contact100">
+                            <div class="wrap-contact100">
+                                <br>
+                                <form class="contact100-form" action="" method="POST">
+                                    {% csrf_token%}
+                                    <br>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Team Name:</span>
+                                        {{form_edit.libelle}}
+                                    </div>
+                                    <input class="btn btn-outline-warning" type="submit" value="Update">
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

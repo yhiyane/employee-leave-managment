@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-edit"></i> Update Employer Information</h1>
+        <p>In this page you will find all information about the employee "{{ employee.first_name }}&nbsp;{{ employee.last_name }}" </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="small_div">
+                    <div class="container">
+                        <div class="container-contact100">
+                            <div class="wrap-contact100">
+                                <br>
+                                <h1>
+                                    <center><strong>{{ employee.first_name }}&nbsp;{{ employee.last_name }}</strong>
+                                    </center>
+                                </h1>
+                                <form class="contact100-form" action="" method="POST">
+                                    {% csrf_token%}
+                                    <br>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">First Name:</span>
+                                        {{form.first_name}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Last Name:</span>
+                                        {{form.last_name}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">CIN code:</span>
+                                        {{form.cin_code}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Birth date:</span>
+                                        {{form.birth_date}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Hire date:</span>
+                                        {{form.hire_date}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Email:</span>
+                                        {{form.email}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">CNSS code:</span>
+                                        {{form.cnss_code}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Experience years:</span>
+                                        {{form.experience_years_number}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Position:</span>
+                                        {{form.positon}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">Manager:</span>
+                                        {{form.manager}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">BU:</span>
+                                        {{form.be}}
+                                    </div>
+                                    <div class="wrap-input100 validate-input" style="border-bottom: none;">
+                                        <span class="label-input100">BU:</span>
+                                        {{form.team}}
+                                    </div>
+
+
+                                    <input class="btn btn-primary" type="submit" value="Update">
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-edit"></i> Create Leave Request</h1>
+    </div>
+</div>
+<div id="accordion">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <input type="radio" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne" style="width: 0px;height: 0px;">
+                <label class="radio-container m-r-45" data-toggle="collapse" data-target="#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne">Whole day
+                    <input type="radio" checked="checked" name="gender">
+                    <span class="checkmark"></span>
+                </label>
+                <input class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="false" aria-controls="collapseTwo" style="width: 0px;height: 0px;">
+                <label class="radio-container" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                       aria-controls="collapseTwo">Half day
+                    <input type="radio" name="gender">
+                    <span class="checkmark"></span>
+                </label>
+
+            </h5>
+        </div>
+        <div style="width: 85%;margin-left: 8%;">
+            <form method="POST">
+                {% csrf_token%}
+                <div class="row row-space">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="label">Start_date</label>
+                            {{form.start_date}}
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="label">End_date</label>
+                            {{form.end_date}}
+                        </div>
+                    </div>
+
+                </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row row-space">
+                            <div class="col-6">
+
+                            </div>
+                            <div class="col-6">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row row-space">
+                            <div class="col-6" style="margin-left: -3%;">
+                                <div class="input-group">
+                                    <label class="label" >start_time</label>
+                                    {{form.start_time}}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <label class="label">End_time</label>
+                                    {{form.end_time}}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-space">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="label" style="margin-top: 20px;">Motif</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{form.motif}}
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="label">Reason</label>
+                            {{form.reason}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-space">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <input class="btn btn-info" type="submit" value="Send Request"
+                                   style="width: 50%;background-color: #45637f;">
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+<script>
+        $('#id_start_date').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+         $('#id_end_date').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#id_create_date').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#id_start_time').timepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#id_end_time').timepicker({
+            uiLibrary: 'bootstrap4'
+        });
+
+
+
+</script>
+
+
+{% endblock %}

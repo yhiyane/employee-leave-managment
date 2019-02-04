@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="app-title">
+    <div>
+        <h4><i class="fa  fa-question-circle"></i> Are you sure?</h4>
+        <p>Are you sure you want to delete the positions "{{position.libelle}}"??</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <span class="label-input100" style="margin-left: 35%;"><strong> Team Id:</strong></span>
+                            <input class="input100" type="text" value="{{position.id}}" disabled style="width: 50%;
+                            margin-left: 20%;margin-top: 1%;"/>
+                            <br>
+                            <span class="label-input100" style="margin-left: 35%;"><strong> Team Name:</strong></span>
+                            <input class="input100" type="text" value="{{position.libelle}}" disabled style="width: 50%;
+                            margin-left: 20%;margin-top: 1%;"/>
+                            <br><br>
+                            <a class="btn btn-danger" href="{% url 'CRUD:delete_position' position.id %}" style="
+                               border: none;"><i class="fa fa-trash-o" style="font-size: 16px;"></i>&nbsp;&nbsp;Delete</a>
+                            <a class="btn btn-secondary" href="{% url 'CRUD:position' %}"
+                               style="border: none;"><i class="fa  fa-arrow-left" style="font-size: 16px;"></i>&nbsp;&nbsp;No,Back to the list </a>
+                        </div>
+                        <div class="col">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

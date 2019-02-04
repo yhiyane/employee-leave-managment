@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-edit"></i> Update Employer Information</h1>
+        <p>In this page you will find all information about the employee "{{ employee.first_name }}&nbsp;{{
+            employee.last_name }}" </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="small_div">
+                    <div class="container">
+                        <div class="container-contact100">
+                            <div style="width: 85%;margin-left: 8%;">
+                                <form method="POST">
+                                    {% csrf_token%}
+                                    <div class="row row-space">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <label class="label">Start_date</label>
+                                                {{form.start_date}}
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <label class="label">End_date</label>
+                                                {{form.end_date}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row row-space">
+                                            <div class="col-6" style="margin-left: -3%;">
+                                                <div class="input-group">
+                                                    <label class="label">start_time</label>
+                                                    {{form.start_time}}
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="input-group">
+                                                    <label class="label">End_time</label>
+                                                    {{form.end_time}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row row-space">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <label class="label" style="margin-top: 20px;">Motif</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{form.motif}}
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <label class="label">Reason</label>
+                                                {{form.reason}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-space">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <input class="btn btn-info" type="submit" value="Send Request"
+                                                       style="width: 50%;background-color: #45637f;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        $('#id_start_date').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+         $('#id_end_date').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#id_create_date').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#id_start_time').timepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#id_end_time').timepicker({
+            uiLibrary: 'bootstrap4'
+        });
+
+
+
+</script>
+{% endblock %}

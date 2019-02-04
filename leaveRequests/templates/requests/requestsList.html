@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="app-title">
+    <div>
+       <h1><i class="fa fa-edit"></i> Requests List</h1>
+        <p>List of all "{{employer.first_name}}&nbsp;{{employer.last_name}}" requests</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                {% if messages %}
+
+                <ul class="messages">
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </div>
+                </ul>
+                {% endif %}<br>
+               <table class="table table-hover" id="sampleTable"
+                       style="font-family: Poppins-SemiBold;font-size: 13px;">
+                    <thead>
+                    <tr style="text-align: center;">
+                        <th>Start Date</th>
+                        <th>Start Time</th>
+                        <th>End Date</th>
+                        <th>End Time</th>
+                        <th>Create Date</th>
+                        <th>Motif</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for r in requests_list %}
+
+                    <tr style="text-align: center;">
+                        <td>{{r.start_date}}</td>
+                        <td>{{r.start_time}}</td>
+                        <td>{{r.end_date}}</td>
+                        <td>{{r.end_time}}</td>
+                        <td>{{r.create_date}}</td>
+                        <td>{{r.motif}}</td>
+                        <td>{% if r.status == 'accepted'%}
+                            <h6><span class="badge badge-success">{{r.status}}</span></h6>
+                            {% endif %}
+                            {% if r.status == 'canceled'%}
+                            <h6><span class="badge badge-secondary">{{r.status}}</span></h6>
+                            {% endif %}
+                            {% if r.status == 'rejected'%}
+                            <h6><span class="badge badge-info" style="background-color: #da0909;">{{r.status}}</span></h6>
+                            {% endif %}
+                            {% if r.status == 'waiting'%}
+                            <h6><span class="badge badge-primary" >{{r.status}}</span></h6>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="{% url 'LEAVE:update_request' r.id %}" style="background: transparent;color: #45637f;
+                            font-size: 23px;border: none;margin-top: -10px;"><strong><i class="fa fa-edit"
+                                                                      style="font-size: 19px;"></i></strong></a>
+                            <a class="btn btn-danger" href="#" style="background: transparent;color: #e73737;
+                               border: none;margin-top: -10px;" data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o"
+                                                                                           style="font-size: 19px;"></i></a>
+                            <!-- Modal Delete -->
+                            <div class="modal fade" id="delete" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="text-align: center;">
+                                            <center><h5 class="modal-title" id="exampleModalLabel">
+                                                {{employer.first_name}} &nbsp;{{employer.last_name}}</h5>
+                                            </center>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" style="color:black;font-size:17px">
+                                            <strong>Are you sure you want to cancel this request</strong>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <a class="btn btn-danger" href="{% url 'LEAVE:cancel_request' r.id %}"><i
+                                                    class="fa fa-trash-o"></i>
+                                                &nbsp;&nbsp;Cancel Request</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

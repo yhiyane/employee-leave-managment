@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-edit"></i> Update Business unit Information</h1>
+        <p>In this page you will find all information about "{{ bu.libelle }}" BU </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="small_div">
+                    <div class="container">
+                        <form class="contact100-form" action="" method="POST">
+                            {% csrf_token%}
+                            <div class="row justify-content-md-center">
+                                <div class="col col-lg-1">
+                                    <span class="label-input100"
+                                          style="margin-left: 35%;"><strong> BU Id:</strong></span><br><br>
+                                    <span class="label-input100"
+                                          style="margin-left: 35%;"><strong> BU Name:</strong></span>
+                                </div>
+                                <div class="col-md-auto" style="margin-left: -10%;">
+                                    {{bu.id}}<br><br>
+                                    {{form_edit.libelle}}<br>
+                                    <input class="btn btn-outline-warning" type="submit" value="Update">
+                                    <a class="btn btn-outline-secondary" href="{% url 'CRUD:bu' %}"
+                               style="border: none;"><i class="fa  fa-arrow-left" style="font-size: 16px;"></i>&nbsp;&nbsp;No,Back to the list </a>
+
+                                </div>
+                                <div class="col col-lg-4">
+
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+
+
+                          <br><br>
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
