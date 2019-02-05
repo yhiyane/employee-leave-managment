@@ -10,9 +10,9 @@ def index_leave(request):
     if request.method == 'POST':
         user = request.user
         employer = Employee.objects.get(user_id=user.id)
+        form = LeaveRequestForm(request.POST or None)
         try:
             manager = Employee.objects.get(id=employer.manager_id)
-            form = LeaveRequestForm(request.POST or None)
             if form.is_valid():
                 leave_request = form.save(commit=False)
                 leave_request.employee = employer
@@ -24,7 +24,7 @@ def index_leave(request):
             else:
                 print(form.errors)
         except:
-            print("this user haven't a manager yet .You we can't send this request!! ")
+            print("this user haven't a manager yet .You  can't send this request!! ")
     else:
         form = LeaveRequestForm()
     context = {

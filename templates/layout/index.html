@@ -20,6 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/404page.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/leaveRequest.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/newEmployer.css'%}">
@@ -133,22 +134,24 @@
 <aside class="app-sidebar">
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="{{ user.profile.image.url }}" alt="User Image" style="width: 40%;">
         <div>
-          <p class="app-sidebar__user-name">{{ user.first_name}}</p>
-          <p class="app-sidebar__user-designation">{{employer.positon}}</p>
-
+          <p class="app-sidebar__user-name">{{ user.username}}</p>
+          <p class="app-sidebar__user-designation">{{employer_user.positon}}</p>
         </div>
       </div>
+    {% if exit is True %}
     <ul class="app-menu">
         <li><a class="app-menu__item" href="{% url 'CRUD:profile' %}"><i class="app-menu__icon fa fa-user"></i><span
                 class="app-menu__label">Profile</span></a></li>
         </li>
-        {% if employer.tag_manager == True or user.is_superuser == True %}
-          <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cogs"></i>
+        {% if  user.is_superuser is True %}
+          <li class="treeview">
+              <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cogs"></i>
             <span class="app-menu__label">Setting</span><i class="treeview-indicator fa fa-angle-right"></i></a>
          <ul class="treeview-menu">
+
                 <li><a class="treeview-item" href="{% url 'CRUD:index' %}">&nbsp;&nbsp;&nbsp;&nbsp;
                     <i class="icon fa fa-cog"></i>Employers management</a></li>
-             {% if user.is_superuser == True %}
+
                 <li><a class="treeview-item" href="{% url 'CRUD:teams' %}">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -157,7 +160,7 @@
                     <i class="icon fa fa-cog"></i> BU management</a></li>
                 <li><a class="treeview-item" href="{% url 'CRUD:position' %}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <i class="icon fa fa-cog"></i> Position management</a></li>
-             {% endif %}
+
             </ul>
         </li>
         {% endif %}
@@ -172,6 +175,7 @@
             </ul>
         </li>
     </ul>
+    {% endif %}
 </aside>
 <main class="app-content">
     {% block content %} {% endblock %}

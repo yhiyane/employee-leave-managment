@@ -8,8 +8,6 @@ app_name = 'CRUD'
 urlpatterns = [
     path('', views.index, name='index'),
     path('delete/<id>', views.delete, name='delete'),
-    path('create', views.create, name='create'),
-    path('add_newEmployer', views.add_newEmployer, name='add_newEmployer'),
     path('edit/<id>', views.edit, name='edit'),
     path('teams', views.teams, name='teams'),
     path('delete_team/<id>', views.delete_team, name='delete_team'),
@@ -28,4 +26,5 @@ urlpatterns = [
     path('edit_position/<id>', views.edit_position, name='edit_position'),
     path('find_position/<id>', views.find_position, name='find_position'),
     path('delete_position/<id>', views.delete_position, name='delete_position'),
+    path('add_newEmployer', views.add_newEmployer, name='add_newEmployer'),
 ]

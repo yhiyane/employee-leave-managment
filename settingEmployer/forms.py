@@ -4,127 +4,37 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
+class EmployerCreate(forms.ModelForm):
+    first_name = forms.CharField(required=True, widget=forms.TextInput(
+        attrs={"placeholder": "Enter the first name", "class": "form-control"
+               }))
+    last_name = forms.CharField(required=True, widget=forms.TextInput(
+        attrs={"placeholder": "Enter the last name", "class": "form-control"}))
+    cin_code = forms.CharField(required=True, widget=forms.TextInput(
+        attrs={"placeholder": "Enter the CIN code", "class": "form-control"}))
+    birth_date = forms.DateField(input_formats=['%Y-%m-%d'], required=True, widget=forms.TextInput(
+        attrs={"class": "form-control", "type": 'date'}))
 
+    hire_date = forms.DateField(input_formats=['%Y-%m-%d'], required=True, widget=forms.TextInput(
+        attrs={"class": "form-control", "type": 'date'}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(
+        attrs={"placeholder": "Enter Employer's Email", "class": "form-control", "type": 'email'}))
+    cnss_code = forms.CharField(required=True, widget=forms.TextInput(
+        attrs={"placeholder": "Enter the CNSS code", "class": "form-control"}))
+    class Meta:
+        model = Employee
+        fields = [
+            'first_name', 'last_name', 'cin_code', 'birth_date', 'hire_date', 'email', 'cnss_code',
+            'experience_years_number', 'manager', 'positon', 'be', 'tag_manager', 'team'
+        ]
 
-class EmployerRegister(forms.Form):
-    first_name = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Enter the first name",
-                   "class": "input100"
-                   }
-        )
-    )
-    last_name = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Enter the last name",
-                   "class": "input100"
-                   }
-        )
-    )
-    cin_code = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Enter the CIN code",
-                   "class": "input100"
-                   }
-        )
-    )
-    birth_date = forms.DateField(
-        input_formats=['%Y-%m-%d'],
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                "class": "input100",
-                "type": 'date'
-            }
-        )
-    )
-    hire_date = forms.DateField(
-        input_formats=['%Y-%m-%d'],
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                "class": "input100",
-                "type": 'date'
-            }
-        )
-    )
-    email = forms.EmailField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Enter Employer's Email",
-                "class": "input100",
-                "type": 'email'
-            }
-        )
-    )
-    cnss_code = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Enter the CNSS code",
-                   "class": "input100"
-                   }
-        )
-    )
-    experience_years_number = forms.IntegerField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Enter the experience years",
-                   "class": "input100",
-                   'type': 'number'
-                   }
-        )
-
-    )
-    bu_choices = [[b.id, b.libelle] for b in BusinessUnit.objects.all()]
-    be = forms.ChoiceField(
-        required=True,
-        widget=forms.Select(
-            attrs={
-                "class": "input100",
-                "style": "border: none;"
-            }
-        ),
-        choices=bu_choices
-    )
-    position_choice = [[p.id, p.libelle] for p in Position.objects.all()]
-    position = forms.ChoiceField(
-        required=True,
-        widget=forms.Select(
-            attrs={
-                "class": "input100",
-                "style": "border: none;"
-            }
-        ),
-        choices=position_choice
-    )
-    managers_choice = [[m.id, m.first_name + '  ' + m.last_name] for m in Employee.objects.filter(tag_manager=True)]
-    managers = forms.ChoiceField(
-        required=False,
-        widget=forms.Select(
-            attrs={
-                "class": "input100",
-                "style": "border: none;"
-            }
-        ),
-        choices=managers_choice
-    )
-    tag_manager = forms.BooleanField(
-        required=False
-    )
-    teams_choices = [[t.id, t.libelle] for t in Team.objects.all()]
-    team = forms.MultipleChoiceField(
-        required=False,
-        widget=forms.SelectMultiple(
-            attrs={
-                "class": "input100",
-            }
-        ),
-        choices=teams_choices
-    )
+    def __init__(self, *args, **kwargs):
+        super(EmployerCreate, self).__init__(*args, **kwargs)
+        self.fields['positon'].queryset = Position.objects.all()
+        self.fields['be'].queryset = BusinessUnit.objects.all()
+        self.fields['manager'].queryset = Employee.objects.filter(tag_manager=True)
+        for visible in self.fields:
+            self.fields[visible].widget.attrs.update({'class': 'input100'})
 
 
 class UserRegisterForm(UserCreationForm):
@@ -140,7 +50,6 @@ class UserRegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
-        self.fields['is_superuser'].widget.attrs.update({"class": "form-check-input", "label": 'sdf'})
         self.fields['username'].widget.attrs.update({"class": "form-control"})
         self.fields['password1'].widget.attrs.update({"class": "form-control"})
         self.fields['password2'].widget.attrs.update({"class": "form-control"})
@@ -158,10 +67,12 @@ class UserUpdateForm(forms.ModelForm):
         for visible in self.fields:
             self.fields[visible].widget.attrs.update({'class': 'form-control'})
 
+
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+
 
 class EditForm(forms.ModelForm):
     class Meta:
@@ -186,9 +97,6 @@ class EditForm(forms.ModelForm):
         self.fields['manager'].queryset = Employee.objects.filter(tag_manager=True)
         for visible in self.fields:
             self.fields[visible].widget.attrs.update({'class': 'form-control'})
-
-
-
 
 
 class TeamForm(forms.ModelForm):

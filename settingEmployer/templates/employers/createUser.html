@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block body %}
 <div class="app-title">
-    <div>
+   <div>
         <h1><i class="fa fa-list-ul"></i> Add new Employer</h1>
         <p>Add new employer to the list</p>
     </div>
@@ -12,7 +12,21 @@
     <div class="col-md-12">
         <div class="tile">
             <div class="tile-body">
-                <div class="small_div">
+                {% if form.errors %}
+                {% for field in form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
+               <div class="small_div">
                     <div class="container">
                         <div class="container-contact100">
                             <div class="wrap-contact100">
@@ -24,7 +38,7 @@
 				                           </span>
                                 </div>
 
-                                <form method="POST" class="contact100-form" action="/setting/create">
+                                <form method="POST" class="contact100-form">
                                    {% csrf_token %}
                                     <br>
                                     <div class="wrap-input100 validate-input">
@@ -73,11 +87,11 @@
                                     </div>
                                     <div class="wrap-input100 validate-input">
                                         <span class="label-input100">Position:</span>
-                                        {{form.position}}
+                                        {{form.positon}}
                                     </div>
                                     <div class="wrap-input100 validate-input">
                                         <span class="label-input100">Managers:</span>
-                                        {{form.managers}}
+                                        {{form.manager}}
                                     </div>
 
 
@@ -98,12 +112,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+               </div>
+            </div>
 
             </div>
         </div>
     </div>
 </div>
-
 
 {% endblock %}
