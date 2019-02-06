@@ -1,0 +1,197 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+      <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-home"></i> Home</a></li>
+          <li ><a href="{% url 'leaveRqt.index' %}"> Leave Request </a></li>
+        <li class="active"> Membres</li>
+      </ol>
+
+
+
+
+     <div class="box box-info">
+            <div class="box-header">
+
+  <h3 class="box-title">treat Leave request</h3>
+            </div>
+
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover table-earning">
+                    <thead>
+    <tr>
+      <th scope="col">employee</th>
+      <th scope="col">start_date</th>
+      <th scope="col">end_date</th>
+        <th scope="col">debutHeure</th>
+        <th scope="col">finHeure</th>
+        <th scope="col">create_date</th>
+        <th scope="col">status</th>
+      <th scope="col">action</th>
+    </tr>
+
+                   <tbody>
+
+                                {% for item in membres_LeaveRequests %}
+
+                                    <tr>
+
+                                        <td> {{ item.employee }}</td>
+
+                                        <td> {{ item.start_date}}</td>
+                                        <td> {{ item.end_date}}</td>
+                                        <td> {{ item.debutHeure}}</td>
+                                        <td> {{ item.finHeure}}</td>
+                                        <td> {{ item.create_date}}</td>
+                                        <td>
+                                             {% if item.status == 'Waiting' %}
+
+                                                  <span class="badge badge-info" style="background-color: #00c0ef">{{ item.status}}</span>
+
+                                             {% endif %}
+
+                                             {% if item.status == 'Rejected' %}
+
+                                                  <span class="badge badge-danger" style="background-color: #f56954">{{ item.status}}</span>
+
+                                             {% endif %}
+                                            {% if item.status == 'Accepted' %}
+
+                                                  <span class="badge badge-success" style="background-color: #00a65a">{{ item.status}}</span>
+
+                                             {% endif %}
+                                            {% if item.status == 'Canceled' %}
+
+                                                  <span class="badge badge-warning" style="background-color: #f39c12">{{ item.status}}</span>
+
+                                             {% endif %}
+                                            </td>
+
+                                    <td style="width: 40px">
+
+                                        <a   href="{% url 'leaveRqt.show' item.id %}">
+                                             <i class="fa fa-eye"></i>
+                                         </a>
+
+
+                                    </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+
+
+
+
+
+{% comment %}          <div class="box box-primary">
+            <div class="box-body no-padding">
+              <!-- THE CALENDAR -->
+              <div id="calendar"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>{% endcomment %}
+
+
+
+
+
+  <script type="text/javascript">
+
+ $(function() { // dom ready
+
+  var todayDate = moment().startOf('day');
+  var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+  var TODAY = todayDate.format('YYYY-MM-DD');
+  var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
+
+  $('#calendar').fullCalendar({
+    resourceAreaWidth: 230,
+    editable: true,
+    aspectRatio: 1.5,
+    scrollTime: '00:00',
+    header: {
+      left: 'promptResource today prev,next',
+      center: 'title',
+      right: 'timelineDay,timelineThreeDays,agendaWeek,month'
+    },
+    customButtons: {
+      promptResource: {
+        text: '+ room',
+        click: function() {
+          var title = prompt('Room name');
+          if (title) {
+            $('#calendar').fullCalendar(
+              'addResource',
+              { title: title },
+              true // scroll to the new resource?
+            );
+          }
+        }
+      }
+    },
+    defaultView: 'timelineMonth',
+    views: {
+      timelineThreeDays: {
+        type: 'timeline',
+        duration: { days: 7 }
+      }
+    },
+    resourceLabelText: 'Rooms',
+    resources: [
+      { id: 'a', title: 'Auditorium A' },
+      { id: 'b', title: 'Auditorium B', eventColor: 'green' },
+      { id: 'c', title: 'Auditorium C', eventColor: 'orange' },
+      { id: 'd', title: 'Auditorium D', children: [
+        { id: 'd1', title: 'Room D1' },
+        { id: 'd2', title: 'Room D2' }
+      ] },
+      { id: 'e', title: 'Auditorium E' },
+      { id: 'f', title: 'Auditorium F', eventColor: 'red' },
+      { id: 'g', title: 'Auditorium G' },
+      { id: 'h', title: 'Auditorium H' },
+      { id: 'i', title: 'Auditorium I' },
+      { id: 'j', title: 'Auditorium J' },
+      { id: 'k', title: 'Auditorium K' },
+      { id: 'l', title: 'Auditorium L' },
+      { id: 'm', title: 'Auditorium M' },
+      { id: 'n', title: 'Auditorium N' },
+      { id: 'o', title: 'Auditorium O' },
+      { id: 'p', title: 'Auditorium P' },
+      { id: 'q', title: 'Auditorium Q' },
+      { id: 'r', title: 'Auditorium R' },
+      { id: 's', title: 'Auditorium S' },
+      { id: 't', title: 'Auditorium T' },
+      { id: 'u', title: 'Auditorium U' },
+      { id: 'v', title: 'Auditorium V' },
+      { id: 'w', title: 'Auditorium W' },
+      { id: 'x', title: 'Auditorium X' },
+      { id: 'y', title: 'Auditorium Y' },
+      { id: 'z', title: 'Auditorium Z' }
+    ],
+    events: [
+      { id: '1', resourceId: 'b', start: TODAY + 'T02:00:00', end: TODAY + 'T07:00:00', title: 'event 1' },
+      { id: '2', resourceId: 'c', start: TODAY + 'T05:00:00', end: TODAY + 'T22:00:00', title: 'event 2' },
+      { id: '3', resourceId: 'd', start: YESTERDAY, end: TOMORROW, title: 'event 3' },
+      { id: '4', resourceId: 'e', start: TODAY + 'T03:00:00', end: TODAY + 'T08:00:00', title: 'event 4' },
+      { id: '5', resourceId: 'f', start: TODAY + 'T00:30:00', end: TODAY + 'T02:30:00', title: 'event 5' }
+    ]
+  });
+
+});
+
+// readjust sizing after font load
+$(window).on('load', function() {
+  $('#calendar').fullCalendar('render');
+});
+</script>
+{% endblock %}
+

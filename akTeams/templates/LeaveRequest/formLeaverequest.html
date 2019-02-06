@@ -1,0 +1,210 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+      <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active"> Leave Request </li>
+
+      </ol>
+
+ <form method="POST" >
+        <div class="box box-info">
+            <div class="box-header">
+
+
+  <h3 class="box-title">New Leave request</h3>
+
+
+
+
+
+            </div>
+            <div class="box-body">
+
+<form method="POST" >
+
+                            {% csrf_token %}
+    <div class="form-group">
+
+
+    <div class="custom-control row">
+        <div class="col-md-2">
+         <select class="pull-left form-control" name="partieJour" id="partieJour">
+                    <option value="AM">Matinée</option>
+                    <option value="PM">après-midi</option>
+                  </select>
+            </div>
+        <div class="col-md-9">
+        <div class="pull-right" >
+        <label class="switch">
+      <input type="checkbox" name="isJournee"  id="switchJounrnee" value="Yes" checked>
+         <span class="slider round"></span>
+
+            </label>
+        <label for="switchJounrnee" >Journée Entière</label>
+            </div>
+            </div>
+{#      <label class="custom-control-label" for="switchJounrnee">Journée Entière</label>#}
+    </div>
+<br>
+  </div>
+
+
+              <div class="form-group">
+                <label for="id_start_date">Date Debut:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="start_date" class="form-control pull-right datepicker"  id="id_start_date" >
+                </div>
+                <!-- /.input group -->
+              </div>
+
+             {% comment %} <div class="bootstrap-timepicker form-group">
+                <div class="form-group">
+                  <label for="id_debutHeure">Heure Debut:</label>
+
+                  <div class="input-group">
+                                          <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="debutHeure" id="id_debutHeure" class="form-control timepicker">
+
+
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+              </div>{% endcomment %}
+              <div class="form-group" id="dateFin">
+                <label for="id_end_date">Date Fin:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="end_date" class="form-control pull-right datepicker"  id="id_end_date" >
+                </div>
+                <!-- /.input group -->
+              </div>
+
+            {% comment %}  <div class="bootstrap-timepicker form-group">
+                <div class="form-group">
+                  <label for="id_finHeure">Heure Fin:</label>
+
+                  <div class="input-group">
+                                          <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="finHeure" id="id_finHeure" class="form-control timepicker">
+
+
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+              </div>{% endcomment %}
+
+
+            <div class="form-group">
+
+              <label for="{{ form.leave_type.id_for_label }}" >{{ form.leave_type.label }}</label>
+
+              {{ form.leave_type }}
+
+
+            </div>
+            <div class="form-group">
+
+              <label for="{{ form.reason.id_for_label }}" >{{ form.reason.label }}</label>
+
+              {{ form.reason }}
+
+
+            </div>
+
+
+            </div>
+
+
+
+
+
+
+            <div class="box-footer clearfix">
+                <div class="pull-right">
+
+
+                    <button type="submit" name="creedemande" class="btn bg-olive margin ">
+                    Envoyer la demande</button>
+                </div>
+
+
+
+</form>
+            </div>
+          </div>
+
+    </form>
+
+
+
+
+
+
+
+
+
+        <script type="text/javascript">
+
+           $(function () {
+
+               if($('#switchJounrnee').is(':checked'))
+               {
+                   $('#partieJour').hide();
+                   $('#dateFin').show();
+               }
+
+               $('#switchJounrnee').click(function () {
+                   if(this.checked) {
+
+               $('#partieJour').hide();
+               $('#dateFin').show();
+
+                }
+                else {
+
+                    $('#partieJour').show();
+                    $('#dateFin').hide();
+                   }
+
+               })
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+    $('[data-mask]').inputmask()
+
+
+    //Date picker
+
+    $('.datepicker').datepicker({
+
+        format: 'yyyy-mm-dd',
+      autoclose: true,
+       startDate: '0d',
+    }).datepicker("setDate",'now');
+
+    //Timepicker
+    $('.timepicker').timepicker({
+     showMeridian: false,
+    })
+  })
+        </script>
+
+{% endblock %}

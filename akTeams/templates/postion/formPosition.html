@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+      <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li ><a href="{% url 'position.index' %}"> Position </a></li>
+                          {% if modeCreate %}
+<li class="active"> New</li>
+{% else %}
+
+        <li class="active">Update</li>
+{% endif %}
+
+      </ol>
+ <form method="POST" >
+        <div class="box box-info">
+            <div class="box-header">
+
+                {% if modeCreate %}
+  <h3 class="box-title">New Position</h3>
+{% else %}
+
+        <h3 class="box-title">Update Position </h3>
+{% endif %}
+
+
+
+              <!-- /. tools -->
+            </div>
+            <div class="box-body">
+
+
+<form method="POST" >
+
+                            {% csrf_token %}
+
+                           {% for field in form %}
+
+            <div class="form-group">
+
+              <label for="{{ field.id_for_label }}" >{{ field.label }}</label>
+
+                {{ field }}
+
+
+            </div>
+
+        {% endfor %}
+
+            </div>
+
+            <div class="box-footer clearfix">
+
+                {% if modeCreate %}
+
+                    <button type="submit" class="btn bg-olive margin pull-right">
+                    New</button>
+
+{% else %}
+                    <button type="submit" class="btn btn-secondary margin pull-right">
+                    Update</button>
+
+{% endif %}
+
+</form>
+            </div>
+          </div>
+
+    </form>
+
+
+
+
+
+
+
+{% endblock %}

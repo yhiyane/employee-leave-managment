@@ -1,0 +1,286 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+      <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li ><a  href="{% url 'emp.index' %}"> Employee </a></li>
+          {% if modeCreate %}
+        <li class="active"> New</li>
+      {% else %}
+              <li class="active"> Update</li>
+      {% endif %}
+      </ol>
+ <form method="POST" >
+        <div class="box box-info">
+            <div class="box-header">
+
+                {% if modeCreate %}
+  <h3 class="box-title">New Employee</h3>
+{% else %}
+
+        <h3 class="box-title">Update Employee </h3>
+{% endif %}
+
+
+
+
+            </div>
+            <div class="box-body" >
+
+
+
+
+                            {% csrf_token %}
+
+
+            <div class="form-group row">
+
+                <div class="col-md-6">
+                    <div class="box box-primary">
+
+                        <div class="box-header">
+              <h3 class="box-title">Information personnelle</h3>
+            </div>
+                        <div class="box-body">
+                    <div class="form-group row">
+
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">first name :</label>
+                    <div class="col-md-6" >
+                        {{ form.first_name }}
+                    </div>
+                    </div>
+                            </div>
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">last name :</label>
+                    <div class="col-md-6" >
+                        {{ form.last_name }}
+                       </div>
+                        </div>
+                            </div>
+                    </div>
+{#                fff#}
+
+                                        <div class=" form-group row">
+
+
+                            <label class="col-md-6 col-form-label">CIN :</label>
+                                            <div class="col-md-6" >
+                                                {{ form.cin_code }}
+</div>
+                    </div>
+                                        <div class=" form-group row">
+
+
+                            <label class="col-md-6 col-form-label ">Email :</label>
+                                            <div class="col-md-6" >
+                                                {{ form.email }}
+                                            </div>
+
+                    </div>
+{#                fff#}
+                    <div class="form-group row">
+
+
+                            <label class="col-md-6 col-form-label">Birth date :</label>
+                        <div class="col-md-6" >
+                              {{ form.birth_date }}
+</div>
+
+
+
+                </div>
+{#                fff#}
+                    <div class="form-group row">
+
+
+                            <label class="col-md-6 col-form-label">Hire date :</label>
+                        <div class="col-md-6" >
+                            {{ form.hire_date }}
+                        </div>
+
+
+
+                </div>
+
+{#                fff#}
+                                        <div class="form-group row">
+
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">Cnss :</label>
+                    <div class="col-md-6" >
+                         {{ form.cnss_code }}
+                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">Experience :</label>
+                    <div class="col-md-6" >
+                          {{ form.experience_years_number }}
+                        </div>
+                            </div>
+                                        </div>
+                                        </div>
+
+                                                        <div class="form-group row">
+
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">Positon :</label>
+                    <div class="col-md-6" >
+ {{ form.positon }}                   </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">Business Entity :</label>
+                    <div class="col-md-6" >
+{{ form.be }}                        </div>
+                            </div>
+                                        </div>
+                  {#                fff#}
+
+                    </div>
+
+                                     <div class="form-group row">
+
+
+                            <label class="col-md-6 col-form-label">Manager :</label>
+                        <div class="col-md-6" >
+                            {{ form.manager }}
+</div>
+
+
+
+                </div>
+
+                                                                          <div class="form-group row">
+
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">is MAnager :</label>
+                    <div class="col-md-6" >
+ <input type="checkbox" name="isManager"  id="id_isManager">
+                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                <div class="form-group row">
+                            <label class="col-md-6 col-form-label">is admin :</label>
+                    <div class="col-md-6" >
+{{ formUser.is_superuser }}                        </div>
+                            </div>
+                                        </div>
+                  {#                fff#}
+
+                    </div>
+
+
+</div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-md-4">
+                    {% if modeCreate %}
+                    <div class="box box-primary">
+                        <div class="box-header">
+              <h3 class="box-title">Login</h3>
+            </div>
+                        <div class="box-body">
+                                     <div class="form-group row">
+
+
+                            <label class="col-md-6 col-form-label">Username :</label>
+                        <div class="col-md-6" >
+                            {{ formUser.username }}
+</div>
+
+
+
+                </div>
+                                     <div class="form-group row">
+
+
+                            <label class="col-md-6 col-form-label">Password :</label>
+                        <div class="col-md-6" >
+                            {{ formUser.password1 }}
+</div>
+
+
+
+                </div>
+                                                         <div class="form-group row">
+
+
+                            <label class="col-md-6 col-form-label">Confirmation :</label>
+                        <div class="col-md-6" >
+                            {{ formUser.password2 }}
+</div>
+
+
+
+                </div>
+                    </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+
+{##}
+{% comment %}                           {% for field in form %}
+<div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <div class="col-sm-4">
+      {{ field }}
+    </div>
+
+  </div>
+             {% endfor %}
+                           {% for field in formUser %}
+<div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <div class="col-sm-4">
+      {{ field }}
+    </div>
+
+  </div>
+
+        {% endfor %}{% endcomment %}
+
+            </div>
+
+            <div class="box-footer clearfix">
+
+                {% if modeCreate %}
+
+                    <button type="submit" class="btn bg-olive margin pull-right">
+                    New</button>
+
+{% else %}
+                    <button type="submit" class="btn btn-secondary margin pull-right">
+                    Update</button>
+
+{% endif %}
+
+
+            </div>
+          </div>
+
+    </form>
+
+
+
+
+
+
+
+{% endblock %}

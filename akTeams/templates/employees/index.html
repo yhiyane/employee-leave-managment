@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+      <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li > Employee </li>
+
+      </ol>
+
+
+     <div class="box box-info">
+            <div class="box-header">
+
+                    <a style="float: right"  class="badge badge-primary" href="{% url 'emp.create' %}">
+                        add Employee
+                    </a>
+            </div>
+
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover table-earning">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">first name</th>
+      <th scope="col">last name</th>
+        <th scope="col">cin code</th>
+        <th scope="col">birth date</th>
+        <th scope="col">hire date</th>
+        <th scope="col">email</th>
+        <th scope="col">cnss code</th>
+        <th scope="col">experience</th>
+        <th scope="col">position</th>
+        <th scope="col">B.E</th>
+        <th scope="col">manager</th>
+      <th scope="col">action</th>
+    </tr>
+  </thead>
+                   <tbody>
+
+                                {% for item in list_emp %}
+
+                                    <tr>
+                                        <td> {{ item.id }}</td>
+                                        <td> {{ item.first_name}}</td>
+                                        <td> {{ item.last_name}}</td>
+                                        <td> {{ item.cin_code}}</td>
+                                        <td> {{ item.birth_date}}</td>
+                                        <td> {{ item.hire_date}}</td>
+                                        <td> {{ item.email}}</td>
+                                        <td> {{ item.cnss_code}}</td>
+                                        <td> {{ item.experience_years_number}}</td>
+                                        <td> {{ item.positon.libelle}}</td>
+                                        <td> {{ item.be.libelle}}</td>
+                                        <td> {{ item.manager}}</td>
+                                    <td style="width: 40px">
+                                         <a href="{% url 'emp.update' item.id %}">
+                                             <i class="fa fa-edit"></i>
+                                         </a>
+                                        <a  style="color: red" href="{% url 'emp.delete' item.id %}">
+                                             <i class="fa fa-trash"></i>
+                                         </a>
+
+
+                                    </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+{% endblock %}

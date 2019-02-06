@@ -1,0 +1,66 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+      <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active"> Leave Type </li>
+
+      </ol>
+
+
+
+     <div class="box box-info">
+            <div class="box-header">
+
+                    <a style="float: right"  class="badge badge-primary" href="{% url 'leaveType.create' %}">
+                        add Leave Type
+                    </a>
+            </div>
+
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover table-earning">
+                    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">code</th>
+      <th scope="col">libelle</th>
+        <th scope="col">days</th>
+      <th scope="col">action</th>
+    </tr>
+
+                   <tbody>
+
+                                {% for item in list_leaveType %}
+
+                                    <tr>
+
+                                        <td> {{ item.id }}</td>
+
+                                        <td> {{ item.LeaveTypeCode}}</td>
+                                        <td> {{ item.libelle}}</td>
+                                        <td> {{ item.daysNumber}}</td>
+
+                                    <td style="width: 40px">
+                                         <a href="{% url 'leaveType.update' item.id %}">
+                                             <i class="fa fa-edit"></i>
+                                         </a>
+                                        <a  style="color: red" href="{% url 'leaveType.delete' item.id %}">
+                                             <i class="fa fa-trash"></i>
+                                         </a>
+
+
+                                    </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+{% endblock %}

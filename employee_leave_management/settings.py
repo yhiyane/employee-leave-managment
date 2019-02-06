@@ -38,7 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'leaveManagementApp',
+    'akTeams',
+    'rest_framework'
 ]
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10
+# }
+# AUTH_USER_MODEL = 'akTeams.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'akTeams.view.LeaveRequestView.extraInfoUser'
             ],
         },
     },
@@ -86,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'leave_management',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '',  # Set to empty string for default.
     }
@@ -130,3 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/'

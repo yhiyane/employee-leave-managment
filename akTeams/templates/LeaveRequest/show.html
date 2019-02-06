@@ -1,0 +1,91 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+      <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active"> Leave Request </li>
+
+      </ol>
+
+    <form method="POST" >
+{% csrf_token %}
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="box box-primary ">
+            <div class="box-body box-profile">
+
+              <img src="{% static 'img/user2-160x160.jpg' %}" class="profile-user-img img-responsive img-circle" alt="User Image">
+              <h3 class="profile-username text-center">{{ item.employee }}</h3>
+
+              <p class="text-muted text-center">{{ item.employee.be }}</p>
+              <p class="text-muted text-center">{{ item.employee.positon }}</p>
+
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+     <div class="col-md-9">
+
+         <div class="box box-primary ">
+            <div class="box-body  ">
+
+                <div class="container" style="height: 200px">
+  <div class="row">
+    <div class="col-md-6">
+     <label>Date debut :</label>
+        {{ item.start_date|date:"d-m-y" }}
+    </div>
+    <div class="col-md-6">
+     <label>Heure debut :</label>
+        {{ item.debutHeure|time:"H:i " }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+     <label>Date Fin :</label>
+        {{ item.end_date|date:"d-m-y" }}
+    </div>
+    <div class="col-md-6">
+     <label>Heure Fin :</label>
+        {{ item.finHeure|time:"H:i " }}
+    </div>
+  </div>
+                      <div class="row">
+     <label class="col-md-6 form-group">Motifs :</label>
+<p class="col-md-6 ">
+           {{ item.leave_type}}
+      </p>
+
+  </div>
+  <div class="row">
+     <label class="col-md-6 form-group">Note :</label>
+<p class="col-md-6 ">
+           {{ item.reason}}
+      </p>
+
+  </div>
+</div>
+
+            </div>
+
+              <div class="box-footer">
+                  <div class="pull-right">
+                       <button type="submit"  class="btn bg-maroon margin " name="Rejected">
+                    Refuser</button>
+     <button  class="btn bg-olive margin " type="submit"  name="Accepted">
+                    Accepter</button>
+                  </div>
+  </div>
+          </div>
+     </div>
+
+
+</form>
+
+</div>
+
+{% endblock %}

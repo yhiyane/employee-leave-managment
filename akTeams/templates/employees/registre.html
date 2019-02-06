@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+ <form method="POST" >
+        <div class="box box-info">
+            <div class="box-header">
+
+
+  <h3 class="box-title">New USer</h3>
+
+
+
+
+
+            </div>
+            <div class="box-body" >
+
+
+
+
+                            {% csrf_token %}
+
+                           {% for field in form %}
+<div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    <div class="col-sm-4">
+      {{ field }}
+    </div>
+
+  </div>
+
+
+        {% endfor %}
+
+            </div>
+
+            <div class="box-footer clearfix">
+
+
+
+                    <button type="submit" class="btn bg-olive margin pull-right">
+                    New</button>
+
+
+
+
+            </div>
+          </div>
+
+    </form>
+
+
+
+
+
+
+
+{% endblock %}

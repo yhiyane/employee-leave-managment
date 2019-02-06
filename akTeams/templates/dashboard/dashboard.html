@@ -1,0 +1,88 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+      <ol class="breadcrumb ">
+        <li class="active"><i class="fa fa-home"></i> Home</li>
+
+      </ol>
+
+
+
+
+
+
+{##}
+          <div class="box box-primary">
+            <div class="box-body no-padding">
+              <!-- THE CALENDAR -->
+              <div id="calendar"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+
+
+
+
+
+  <script type="text/javascript">
+
+ $(function() { // dom ready
+
+  var todayDate = moment().startOf('day');
+  var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+  var TODAY = todayDate.format('YYYY-MM-DD');
+  var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
+  var randomColor = Math.floor(Math.random()*16777215).toString(16);
+  $('#calendar').fullCalendar({
+    resourceAreaWidth: 180,
+    editable: true,
+    aspectRatio: 1.5,
+    header: {
+      left: 'prev,next',
+      center: 'title',
+      right: 'timelineDay,timelineThreeDays,timelineMonth'
+    },
+    defaultView: 'timelineMonth',
+    views: {
+      timelineThreeDays: {
+        type: 'timeline',
+        duration: { days: 7 }
+      }
+    },
+    resourceLabelText: 'Employee',
+    resources: [
+
+
+                        {% for item in list_emp %}
+                           { id: '{{ item.id }}',
+                             title: '{{ item.first_name }} {{ item.last_name }}'
+                             },
+                {% endfor %}
+    ],
+    events: [
+         {% for req in leaveRequest %}
+                           { id: '{{ req.id }}',
+                               resourceId: '{{ req.employee.id }}',
+                             start: '{{ req.start_date|date:"Y-m-d" }} {{ req.debutHeure|time:"H:i:s " }}' ,
+                               end: '{{ req.end_date|date:"Y-m-d" }} {{ req.finHeure|time:"H:i:s " }}',
+                               title: '{{ req.leave_type}}'
+                           },
+                {% endfor %}
+{#      { id: '1', resourceId: '2', start: TODAY + 'T02:00:00', end: TODAY + 'T07:00:00', title: 'event 1' },#}
+{#      { id: '2', resourceId: '3', start: TODAY + 'T05:00:00', end: TODAY + 'T22:00:00', title: 'event 2' },#}
+{#      { id: '3', resourceId: '2', start: YESTERDAY, end: TOMORROW, title: 'event 3' }#}
+    ]
+  });
+
+});
+
+{#// readjust sizing after font load#}
+{#$(window).on('load', function() {#}
+{#  $('#calendar').fullCalendar('render');#}
+{#});#}
+</script>
+{% endblock %}
+

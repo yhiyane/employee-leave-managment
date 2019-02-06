@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+          <ol class="breadcrumb ">
+        <li><a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+          <li class="active"> Affectation </li>
+
+      </ol>
+
+    <form method="POST" id="personForm" data-membres-url="{% url 'load_membres' %}">
+    <div class="box box-info">
+            <div class="box-header">
+
+
+              <h3 class="box-title">Affectation</h3>
+
+              <!-- /. tools -->
+            </div>
+            <div class="box-body">
+
+{% comment %}              <div class="form-group">
+                <label>Multiple</label>
+                <select class="form-control select2" multiple="multiple" data-placeholder="Select a State"
+                        style="width: 100%;">
+                  <option>Alabama</option>
+                  <option>Alaska</option>
+                  <option>California</option>
+                  <option>Delaware</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Washington</option>
+                </select>
+              </div>{% endcomment %}
+
+                            {% csrf_token %}
+
+                           {% for field in form %}
+
+            <div class="form-group">
+
+              <label for="{{ field.id_for_label }}" >{{ field.label }}</label>
+
+                {{ field }}
+
+
+            </div>
+
+        {% endfor %}
+
+            </div>
+
+            <div class="box-footer clearfix">
+
+                <button type="submit" class="btn bg-olive margin pull-right">
+                    Save</button>
+            </div>
+          </div>
+
+    </form>
+
+
+
+
+  <script type="text/javascript">
+$(document).ready(function () {
+ $('.select2').select2()
+    $("#id_teams").change(function () {
+
+      var teamsid = $(this).val();
+      var url = $("#personForm").attr("data-membres-url");
+
+        console.log(url)
+
+      $.ajax({
+        url: url,
+        data: {
+          'teamSelected': teamsid
+        },
+        success: function (data) {
+          $("#id_members").html(data);
+        }
+      });
+
+    });
+
+});
+  </script>
+
+
+
+{% endblock %}

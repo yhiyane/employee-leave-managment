@@ -1,0 +1,13 @@
+
+{% for membre in membres %}
+
+
+<option value="{{ membre.id }}" selected>{{ membre }}</option>
+
+
+
+{% endfor %}
+{% for mb in all %}
+    <option value="{{ mb.id }}" >{{ mb }}</option>
+{% endfor %}
+
