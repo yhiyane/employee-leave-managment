@@ -33,3 +33,18 @@ class LeaveRequest(models.Model):
 
     def __str__(self):  # __unicode__ on Python 2
         return self.leave_request_code
+
+
+class Notifications(models.Model):
+    title = models.TextField(null=True, blank=True)
+    created_by = models.ForeignKey(Employee, related_name='Created_By', on_delete=models.SET_NULL, blank=True,
+                                   null=True)
+    created_to = models.ForeignKey(Employee, related_name='Created_To', on_delete=models.SET_NULL, blank=True,
+                                   null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    tag_vu = models.BooleanField(default=False)
+    leave_request = models.ForeignKey(LeaveRequest, related_name='Leave_Request', on_delete=models.SET_NULL, blank=True,
+                                   null=True)
+
+    def __str__(self):
+        return self.title

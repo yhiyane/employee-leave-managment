@@ -21,6 +21,10 @@ def get_user_employer(request):
     return context
 
 
+def notification(request):
+    return render(request, 'users/notifications.css.html')
+
+
 @login_required
 def index(request):
     user = request.user
@@ -33,8 +37,7 @@ def index(request):
             }
             return render(request, 'employers/employerList.html', context)
         else:
-            return render(request, 'employers/forbideen.html')
-
+            return redirect('/leave/requestList')
     except:
         return render(request, 'employers/not_found.html')
 
@@ -63,15 +66,14 @@ def register(request, id):
     if user.is_superuser is True:
         if request.method == 'POST':
             form = UserRegisterForm(request.POST or None)
-            print(form)
             if form.is_valid():
                 employee = get_object_or_404(Employee, pk=id)
-                user = form.save(commit=False)
-                user.email = employee.email
-                user.first_name = employer.first_name
-                user.last_name = employer.last_name
-                user.save()
-                employee.user = user
+                employer_user = form.save(commit=False)
+                employer_user.email = employee.email
+                employer_user.first_name = employer.first_name
+                employer_user.last_name = employer.last_name
+                employer_user.save()
+                employee.user = employer_user
                 employee.save()
                 return redirect('/setting/')
         else:

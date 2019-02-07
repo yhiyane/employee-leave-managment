@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -39,9 +40,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'settingEmployer',
     'leaveRequests'
+
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,7 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'settingEmployer.views.get_user_employer'
+                'settingEmployer.views.get_user_employer',
+                'leaveRequests.views.get_user_notifications'
             ],
         },
     },

@@ -27,4 +27,5 @@ urlpatterns = [
     path('find_position/<id>', views.find_position, name='find_position'),
     path('delete_position/<id>', views.delete_position, name='delete_position'),
     path('add_newEmployer', views.add_newEmployer, name='add_newEmployer'),
+    path('notification', views.notification, name='notifications.css'),
 ]

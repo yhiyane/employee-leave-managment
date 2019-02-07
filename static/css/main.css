@@ -11,6 +11,26 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ /* Utilities */
+.grid-margin, .purchace-popup > div {
+  margin-bottom: 25px; }
+
+@media (min-width: 576px) {
+  .grid-margin-sm-0 {
+    margin-bottom: 0; } }
+
+@media (min-width: 768px) {
+  .grid-margin-md-0 {
+    margin-bottom: 0; } }
+
+@media (min-width: 992px) {
+  .grid-margin-lg-0 {
+    margin-bottom: 0; } }
+
+@media (min-width: 1200px) {
+  .grid-margin-xl-0 {
+    margin-bottom: 0; } }
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -2066,6 +2086,9 @@ select.form-control:focus::-ms-value {
   font-size: 0.765625rem;
   line-height: 1.5;
 }
+span {
+    text-shadow: none;
+}
 
 .form-control-plaintext {
   display: block;
@@ -2079,6 +2102,7 @@ select.form-control:focus::-ms-value {
   border: solid transparent;
   border-width: 2px 0;
 }
+
 
 .form-control-plaintext.form-control-sm, .input-group-sm > .form-control-plaintext.form-control,
 .input-group-sm > .input-group-prepend > .form-control-plaintext.input-group-text,

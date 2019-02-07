@@ -32,14 +32,22 @@
     <link rel="stylesheet" type="text/css" href="{% static 'fonts/gijgo-material.woff'%}">
     <!-- Font-icon css-->
     <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body class="app sidebar-mini rtl">
 <!-- Navbar-->
@@ -56,73 +64,49 @@
         </li>
         <!--Notification Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i
-                class="fa fa-bell-o fa-lg"></i></a>
-            <ul class="app-notification dropdown-menu dropdown-menu-right">
-                <li class="app-notification__title">You have 4 new notifications.</li>
+                class="fa fa-bell-o fa-lg"></i><span style="position: absolute;left: 50%;margin-top: 5px;width: 1rem;border-radius: 100%;background: #FF0017;color: #ffffff;
+                font-size: 11px;top: -1px;font-weight: 600;line-height: 1rem;text-align: center;">{{count}}</span></a>
+            {% if count > 0 %}
+            <ul class="app-notification dropdown-menu dropdown-menu-right" style="width: max-content;">
+                <li class="app-notification__title">You have {{count}} new notifications.</li>
                 <div class="app-notification__content">
-                    <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span
-                            class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i
-                            class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+                    {% for n  in notifications %}
+                    <li>{% if employer_user.tag_manager is False%}
+                        <a class="app-notification__item"  href="{% url 'LEAVE:request_list'%}"><span
+                            class="app-notification__icon"><span class="fa-stack fa-lg"><i
+                            class="fa fa-circle fa-stack-2x text-success"></i><i
+                            class="fa fa-bell fa-stack-1x fa-inverse"></i></span></span>
                         <div>
-                            <p class="app-notification__message">Lisa sent you a mail</p>
-                            <p class="app-notification__meta">2 min ago</p>
+                            <p class="app-notification__message">{{n.title}}</p>
                         </div>
-                    </a></li>
-                    <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span
-                            class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i
-                            class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
+                    </a>{% endif %}
+                        {% if employer_user.tag_manager is True%}
+                        <a class="app-notification__item"  href="{% url 'LEAVE:show_notification_manager' n.id %}"><span
+                            class="app-notification__icon"><span class="fa-stack fa-lg"><i
+                            class="fa fa-circle fa-stack-2x text-success"></i><i
+                            class="fa fa-bell fa-stack-1x fa-inverse"></i></span></span>
                         <div>
-                            <p class="app-notification__message">Mail server not working</p>
-                            <p class="app-notification__meta">5 min ago</p>
+                            <p class="app-notification__message">{{n.title}}</p>
+                            <p class="app-notification__meta" style="font-size: 12px;"><strong>{{n.created_at}}</strong></p>
                         </div>
-                    </a></li>
-                    <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span
-                            class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-success"></i><i
-                            class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
-                        <div>
-                            <p class="app-notification__message">Transaction complete</p>
-                            <p class="app-notification__meta">2 days ago</p>
-                        </div>
-                    </a></li>
-                    <div class="app-notification__content">
-                        <li><a class="app-notification__item" href="javascript:;"><span
-                                class="app-notification__icon"><span class="fa-stack fa-lg"><i
-                                class="fa fa-circle fa-stack-2x text-primary"></i><i
-                                class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
-                            <div>
-                                <p class="app-notification__message">Lisa sent you a mail</p>
-                                <p class="app-notification__meta">2 min ago</p>
-                            </div>
-                        </a></li>
-                        <li><a class="app-notification__item" href="javascript:;"><span
-                                class="app-notification__icon"><span class="fa-stack fa-lg"><i
-                                class="fa fa-circle fa-stack-2x text-danger"></i><i
-                                class="fa fa-hdd-o fa-stack-1x fa-inverse"></i></span></span>
-                            <div>
-                                <p class="app-notification__message">Mail server not working</p>
-                                <p class="app-notification__meta">5 min ago</p>
-                            </div>
-                        </a></li>
-                        <li><a class="app-notification__item" href="javascript:;"><span
-                                class="app-notification__icon"><span class="fa-stack fa-lg"><i
-                                class="fa fa-circle fa-stack-2x text-success"></i><i
-                                class="fa fa-money fa-stack-1x fa-inverse"></i></span></span>
-                            <div>
-                                <p class="app-notification__message">Transaction complete</p>
-                                <p class="app-notification__meta">2 days ago</p>
-                            </div>
-                        </a></li>
-                    </div>
+                    </a>{% endif %}
+
+                    </li>
+                    {% endfor %}
+                </div>
                 </div>
                 <li class="app-notification__footer"><a href="#">See all notifications.</a></li>
+
             </ul>
+            {% endif %}
         </li>
         <!-- User Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i
                 class="fa fa-user fa-lg"></i></a>
             <ul class="dropdown-menu settings-menu dropdown-menu-right">
                 <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
-                <li><a class="dropdown-item" href="{% url 'CRUD:profile' %}"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'CRUD:profile' %}"><i class="fa fa-user fa-lg"></i>
+                    Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
                 </li>
             </ul>
@@ -132,22 +116,23 @@
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="{{ user.profile.image.url }}" alt="User Image" style="width: 40%;">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="{{ user.profile.image.url }}"
+                                        alt="User Image" style="width: 40%;">
         <div>
-          <p class="app-sidebar__user-name">{{ user.username}}</p>
-          <p class="app-sidebar__user-designation">{{employer_user.positon}}</p>
+            <p class="app-sidebar__user-name">{{ user.username}}</p>
+            <p class="app-sidebar__user-designation">{{employer_user.positon}}</p>
         </div>
-      </div>
+    </div>
     {% if exit is True %}
     <ul class="app-menu">
         <li><a class="app-menu__item" href="{% url 'CRUD:profile' %}"><i class="app-menu__icon fa fa-user"></i><span
                 class="app-menu__label">Profile</span></a></li>
         </li>
-        {% if  user.is_superuser is True %}
-          <li class="treeview">
-              <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cogs"></i>
-            <span class="app-menu__label">Setting</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-         <ul class="treeview-menu">
+        {% if user.is_superuser is True %}
+        <li class="treeview">
+            <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cogs"></i>
+                <span class="app-menu__label">Setting</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
 
                 <li><a class="treeview-item" href="{% url 'CRUD:index' %}">&nbsp;&nbsp;&nbsp;&nbsp;
                     <i class="icon fa fa-cog"></i>Employers management</a></li>
@@ -164,15 +149,20 @@
             </ul>
         </li>
         {% endif %}
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-sign-in"></i>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i
+                class="app-menu__icon fa fa-sign-in"></i>
             <span class="app-menu__label">Leave Request</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
+            <ul class="treeview-menu">
                 <li><a class="treeview-item" href="{% url 'LEAVE:index_leave' %}">&nbsp;&nbsp;&nbsp;&nbsp;
                     <i class="icon fa fa-edit"></i>Create a request</a></li>
                 <li><a class="treeview-item" href="{% url 'LEAVE:request_list' %}"> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i class="icon fa fa-list-ul"></i> List of requests</a></li>
-
+                    <i class="icon fa fa-list-ul"></i> User requests</a></li>
+                {% if employer_user.tag_manager is True %}
+                <li><a class="treeview-item" href="{% url 'LEAVE:employers_requests' employer_user.id %}"> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <i class="icon fa fa-users"></i> Employers requests</a></li>
+                 {% endif %}
             </ul>
+
         </li>
     </ul>
     {% endif %}
@@ -207,6 +197,8 @@
       	ga('create', 'UA-72504830-1', 'auto');
       	ga('send', 'pageview');
       }
+
+
 
 </script>
 </body>

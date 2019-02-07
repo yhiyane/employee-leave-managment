@@ -1,5 +1,5 @@
 from django import forms
-from .models import LeaveRequest
+from .models import LeaveRequest,Notifications
 
 
 class LeaveRequestForm(forms.ModelForm):
@@ -25,3 +25,4 @@ class LeaveRequestForm(forms.ModelForm):
         self.fields['motif'].widget.attrs.update({"style": "margin-top: 20px;"})
         for visible in self.fields:
             self.fields[visible].widget.attrs.update({'class': 'input--style-4'})
+
