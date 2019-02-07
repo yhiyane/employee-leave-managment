@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>{% block title %}Ymagis{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% block stylesheets %}{% endblock %}
+  </head>
+  <body>
+
+    {% include 'layouts/_nav.html' %}
+
+    <div class="wrapper">
+      {% block content %}{% endblock %}
+    </div>
+
+    {% include 'layouts/_footer.html' %}
+    {% block javascripts %}{% endblock %}
+  </body>
+</html>

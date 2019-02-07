@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+    	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home color-orange"></em>
+				</a></li>
+				<li class="active">Liste des employés</li>
+			</ol>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Employés</h1>
+			</div>
+		</div><!--/.row-->
+        {% if messages %}
+
+            <ul class="messages">
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </div>
+            </ul>
+        {% endif %}
+		<div class="panel panel-container">
+			<div class="row">
+            <div class="col-sm-9 col-sm-offset-1 col-lg-10 ">
+                <table class="table table-striped table-hover ">
+                    <thead >
+                        <tr>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">CIN</th>
+                            <th scope="col">Date naissance</th>
+                            <th scope="col">Date d'embauche</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">CNSS</th>
+                            <th scope="col">Expérience</th>
+                            <th scope="col">Congé</th>
+                            <th scope="col">Team</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for emp in employee %}
+                            <tr>
+                            <td>{{ emp.first_name }}</td>
+                            <td>{{ emp.last_name }}</td>
+                            <td>{{ emp.cin_code }}</td>
+                            <td>{{ emp.birth_date|date:"D d M Y" }}</td>
+                            <td>{{ emp.hire_date|date:"D d M Y" }}</td>
+                            <td>{{ emp.email }}</td>
+                            <td>{{ emp.cnss_code }}</td>
+                            <td>{{ emp.experience_years_number }}</td>
+                            <td>{{ emp.leave_days_number }}</td>
+                            <td>
+                                {% for team in emp.team.all %}
+                                    {{ team.team_code }}
+                                {% empty %}
+                                    No tags!
+                                {% endfor %}
+                            </td>
+                            <td><a class="btn btn-info" href="update_emp/{{ emp.id }}">Edit</a></td>
+                            <td><a class="btn btn-danger" href="delete_emp/{{ emp.id }}">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+
+			</div><!--/.row-->
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<p class="back-link">Copyright - 2019 - Ymagis</p>
+			</div>
+		</div><!--/.row-->
+	</div>
+{% endblock %}
